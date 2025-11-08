@@ -343,15 +343,9 @@ export default function TournamentDetails() {
 
 const styles = {
   page: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
     minHeight: "100vh",
     width: "100vw",
-    boxSizing: "border-box",
-    overflowX: "hidden",
-    backgroundColor: "#f9fafb",
+    background: "linear-gradient(to bottom, #f9fafb, #fff)",
   },
     header: {
     backgroundImage: `

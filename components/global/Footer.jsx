@@ -1,5 +1,6 @@
 import React from "react";
 import { Facebook, Instagram, Youtube, Twitter, Mail, Phone } from "lucide-react";
+import logo from "../../src/assets/logo1.png";
 
 export default function Footer() {
   return (
@@ -8,8 +9,8 @@ export default function Footer() {
         {/* LEFT SECTION */}
         <div style={styles.column}>
           <div style={styles.logoRow}>
-            <div style={styles.logoCircle}>
-              <span style={styles.logoText}>APO</span>
+            <div style={styles.logoWrapper}>
+              <img src={logo} alt="APO Golf Club Logo" style={styles.logoImage} />
             </div>
             <div>
               <h3 style={styles.clubName}>APO Golf Club USA</h3>
@@ -70,18 +71,33 @@ export default function Footer() {
 }
 
 const styles = {
-footer: {
-  backgroundColor: "#002b7f",
-  color: "white",
-  padding: "4rem 1rem 1.5rem 1rem",
-  borderTop: "4px solid #FFD700",
-  width: "100%",
-  marginLeft: "auto",
-  marginRight: "auto",
-  overflowX: "hidden", // 👈 prevents horizontal cutoff/scroll issues
-  boxSizing: "border-box", // 👈 ensures padding doesn't push content off-screen
+  logoWrapper: {
+  width: "60px",
+  height: "60px",
+  borderRadius: "50%",
+  overflow: "hidden",      // ✅ ensures the image stays circular
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "#FFD700", // optional — keeps a border effect if logo has transparency
+  flexShrink: 0,
 },
-
+logoImage: {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",      // ✅ makes sure it fills the circle evenly
+},
+  footer: {
+    backgroundColor: "#002b7f",
+    color: "white",
+    padding: "4rem 1rem 1.5rem 1rem",
+    borderTop: "4px solid #FFD700",
+    width: "100%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    overflowX: "hidden", // 👈 prevents horizontal cutoff/scroll issues
+    boxSizing: "border-box", // 👈 ensures padding doesn't push content off-screen
+  },
   container: {
     maxWidth: "1200px",
     margin: "0 auto",
