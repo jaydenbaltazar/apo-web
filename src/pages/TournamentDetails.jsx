@@ -11,6 +11,7 @@ import {
 import Card from "../../components/tourney/Card"
 import CardContent from "../../components/tourney/CardContent"
 import Button from "../../components/global/Button";
+import Footer from "../../components/global/Footer";
 
 const players = [
   {
@@ -82,7 +83,7 @@ export default function TournamentDetails() {
 
       <div style={styles.container}>
         {/* === WINNERS CARD === */}
-        <Card>
+        {/* <Card>
         <CardContent>
             <div style={winnersStyles.header}>
             <div style={winnersStyles.iconCircle}>
@@ -91,70 +92,67 @@ export default function TournamentDetails() {
             <h2 style={winnersStyles.title}>Winners</h2>
             </div>
 
-            {/* Two-column container */}
             <div style={winnersStyles.gridTwo}>
-            {/* ===== Left Column (Class A–C) ===== */}
             <div style={winnersStyles.column}>
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class A</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class B</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class C</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 </div>
             </div>
 
-            {/* ===== Right Column (Other Winners) ===== */}
             <div style={winnersStyles.column}>
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Overall Low Net Champion</h3>
-                <p style={winnersStyles.value}>&lt;Name&gt;</p>
+                <p style={winnersStyles.value}>PLACEHOLDER</p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Guest Champion</h3>
-                <p style={winnersStyles.value}>&lt;Name&gt;</p>
+                <p style={winnersStyles.value}>PLACEHOLDER</p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Closest to the Pin</h3>
                 <p style={winnersStyles.label}>
-                    Hole #8: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Hole #8: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Hole #15: <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    Hole #15: <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 <p style={winnersStyles.label}>
                     Hole #11 (Sponsored by Doc Rolly Franco): 
-                    <span style={winnersStyles.value}>&lt;Name&gt;</span>
+                    <span style={winnersStyles.value}>PLACEHOLDER</span>
                 </p>
                 </div>
             </div>
             </div>
         </CardContent>
-        </Card>
+        </Card> */}
 
         {/* === COURSE INFORMATION CARD === */}
         <Card>
@@ -337,6 +335,7 @@ export default function TournamentDetails() {
           </CardContent>
         </Card>
       </div>
+      <Footer/>
     </div>
   );
 }
@@ -344,9 +343,15 @@ export default function TournamentDetails() {
 
 const styles = {
   page: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     minHeight: "100vh",
     width: "100vw",
-    background: "linear-gradient(to bottom, #f9fafb, #fff)",
+    boxSizing: "border-box",
+    overflowX: "hidden",
+    backgroundColor: "#f9fafb",
   },
     header: {
     backgroundImage: `

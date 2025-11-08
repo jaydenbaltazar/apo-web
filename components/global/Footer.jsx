@@ -62,7 +62,7 @@ export default function Footer() {
       {/* BOTTOM BAR */}
       <div style={styles.bottomBar}>
         <p style={styles.bottomText}>
-          © {new Date().getFullYear()} Alpha Phi Omega Golf Club USA. All rights reserved.
+          © {new Date().getFullYear()} - BSCS | Alpha Phi Omega Golf Club USA. All rights reserved. 
         </p>
       </div>
     </footer>
@@ -70,15 +70,18 @@ export default function Footer() {
 }
 
 const styles = {
-  footer: {
-    backgroundColor: "#002b7f",
-    color: "white",
-    padding: "4rem 1rem 1.5rem 1rem",
-    borderTop: "4px solid #FFD700",
-    width: "100%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
+footer: {
+  backgroundColor: "#002b7f",
+  color: "white",
+  padding: "4rem 1rem 1.5rem 1rem",
+  borderTop: "4px solid #FFD700",
+  width: "100%",
+  marginLeft: "auto",
+  marginRight: "auto",
+  overflowX: "hidden", // 👈 prevents horizontal cutoff/scroll issues
+  boxSizing: "border-box", // 👈 ensures padding doesn't push content off-screen
+},
+
   container: {
     maxWidth: "1200px",
     margin: "0 auto",
@@ -187,5 +190,6 @@ const styles = {
   bottomText: {
     fontSize: "0.9rem",
     color: "#cbd5e1",
+    width: "100%",
   },
 };

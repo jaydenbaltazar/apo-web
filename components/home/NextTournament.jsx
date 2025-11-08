@@ -65,7 +65,7 @@ const infoRows = [
   { icon: Calendar, label: "Date", value: "November 8, 2025" },
   { icon: MapPin, label: "Region", value: "North (Hosted by the Valley Boys)" },
   { icon: Trophy, label: "Venue", value: "Sterling Hills Golf Club, Camarillo, CA" },
-  { icon: Clock, label: "Format • Start", value: "Handicap Stroke Play • 10:00 AM" },
+  { icon: Clock, label: "Format • Start", value: "Handicap Stroke Play • 9:50 AM" },
   { icon: DollarSign, label: "Fee", value: "$115/player" },
 ];
 
