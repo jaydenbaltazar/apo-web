@@ -88,7 +88,7 @@ export default function TournamentDetails() {
 
       <div style={styles.container}>
         {/* === WINNERS CARD === */}
-        {/* <Card>
+        <Card>
         <CardContent>
             <div style={winnersStyles.header}>
             <div style={winnersStyles.iconCircle}>
@@ -102,30 +102,30 @@ export default function TournamentDetails() {
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class A</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Champion: <span style={winnersStyles.value}>PJ Aclan</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Runner Up: <span style={winnersStyles.value}>Nards Castillo</span>
                 </p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class B</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Champion: <span style={winnersStyles.value}>Nemie Mosequera</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Runner Up: <span style={winnersStyles.value}>Boy Medina</span>
                 </p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Class C</h3>
                 <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Champion: <span style={winnersStyles.value}>Eric Serrano</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Runner Up: <span style={winnersStyles.value}>Rocky Marte</span>
                 </p>
                 </div>
             </div>
@@ -133,31 +133,26 @@ export default function TournamentDetails() {
             <div style={winnersStyles.column}>
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Overall Low Net Champion</h3>
-                <p style={winnersStyles.value}>PLACEHOLDER</p>
-                </div>
-
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Guest Champion</h3>
-                <p style={winnersStyles.value}>PLACEHOLDER</p>
+                <p style={winnersStyles.value}>Bobet Lara</p>
                 </div>
 
                 <div style={winnersStyles.section}>
                 <h3 style={winnersStyles.subTitle}>Closest to the Pin</h3>
                 <p style={winnersStyles.label}>
-                    Hole #8: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Hole #8: <span style={winnersStyles.value}>Raul Medina</span>
                 </p>
                 <p style={winnersStyles.label}>
-                    Hole #15: <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    Hole #15: <span style={winnersStyles.value}>Pris Tanglao</span>
                 </p>
                 <p style={winnersStyles.label}>
                     Hole #11 (Sponsored by Doc Rolly Franco): 
-                    <span style={winnersStyles.value}>PLACEHOLDER</span>
+                    <span style={winnersStyles.value}>Ed Mendoza</span>
                 </p>
                 </div>
             </div>
             </div>
         </CardContent>
-        </Card> */}
+        </Card>
 
         {/* === COURSE INFORMATION CARD === */}
         <Card>
