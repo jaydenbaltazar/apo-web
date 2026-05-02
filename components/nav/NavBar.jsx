@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "../../src/assets/logo.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // ✅ handle resizing
+  // Handle window resizing
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
@@ -18,40 +20,38 @@ export default function NavBar() {
     setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
-
-
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-        if (!event.target.closest("nav")) {
+      if (!event.target.closest("nav")) {
         setActiveDropdown(null);
-        }
+      }
     };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
-    }, []);
+  }, []);
 
-
-  // ✅ MOBILE VIEW
+  // Mobile View
   if (isMobile) {
     return (
       <nav style={styles.navbar}>
         <div style={styles.inner}>
-          {/* === Logo === */}
-        <div style={styles.logoContainer}>
-            <img
-                src={logo}
-                alt="APO Golf Club Logo"
-                style={styles.logoImage}
-            />
-              <div>
-            <div style={styles.logoTitle}>APO Golf Club</div>
-            <div style={styles.logoSubtitle}>USA</div>
+          {/* Logo */}
+          <div style={styles.logoContainer} onClick={() => navigate("/")}>
+            <img src={logo} alt="APO Golf Club Logo" style={styles.logoImage} />
+            <div>
+              <div style={styles.logoTitle}>APO Golf Club</div>
+              <div style={styles.logoSubtitle}>USA</div>
             </div>
-        </div>
+          </div>
 
-          {/* === Mobile Toggle === */}
+          {/* Mobile Toggle */}
           <div onClick={() => setMenuOpen(!menuOpen)} style={styles.menuIcon}>
-            {menuOpen ? <X size={28} color="#002b7f" /> : <Menu size={28} color="#002b7f" />}
+            {menuOpen ? (
+              <X size={28} color="#002b7f" />
+            ) : (
+              <Menu size={28} color="#002b7f" />
+            )}
           </div>
         </div>
 
@@ -61,7 +61,14 @@ export default function NavBar() {
               <div key={idx} style={styles.mobileItem}>
                 <div
                   style={styles.mobileItemHeader}
-                  onClick={() => toggleDropdown(item.title)}
+                  onClick={() => {
+                    if (item.submenu) {
+                      toggleDropdown(item.title);
+                    } else if (item.path) {
+                      navigate(item.path);
+                      setMenuOpen(false);
+                    }
+                  }}
                 >
                   <span style={styles.mobileLink}>{item.title}</span>
                   {item.submenu && (
@@ -70,7 +77,9 @@ export default function NavBar() {
                       color="#1f2937"
                       style={{
                         transform:
-                          activeDropdown === item.title ? "rotate(180deg)" : "rotate(0deg)",
+                          activeDropdown === item.title
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)",
                         transition: "transform 0.2s ease",
                       }}
                     />
@@ -80,9 +89,19 @@ export default function NavBar() {
                 {activeDropdown === item.title && item.submenu && (
                   <div style={styles.mobileDropdown}>
                     {item.submenu.map((sub, i) => (
-                      <div key={i} style={styles.mobileDropdownItem}>
+                      <div
+                        key={i}
+                        style={styles.mobileDropdownItem}
+                        onClick={() => {
+                          if (sub.path) navigate(sub.path);
+                          setMenuOpen(false);
+                          setActiveDropdown(null);
+                        }}
+                      >
                         <div style={styles.dropdownTitle}>{sub.title}</div>
-                        <div style={styles.dropdownSubtitle}>{sub.subtitle}</div>
+                        <div style={styles.dropdownSubtitle}>
+                          {sub.subtitle}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -95,95 +114,116 @@ export default function NavBar() {
     );
   }
 
-  // ✅ DESKTOP VIEW (click-based dropdowns)
-    return (
+  // Desktop View
+  return (
     <nav style={styles.navbar}>
-        <div style={styles.inner}>
-        {/* === Logo Section === */}
-        <div style={styles.logoContainer}>
-            <img
-                src={logo}
-                alt="APO Golf Club Logo"
-                style={styles.logoImage}
-            />
-              <div>
+      <div style={styles.inner}>
+        {/* Logo Section */}
+        <div
+          onClick={() => navigate("/")}
+          style={{ ...styles.logoContainer, cursor: "pointer" }}
+        >
+          <img src={logo} alt="APO Golf Club Logo" style={styles.logoImage} />
+          <div>
             <div style={styles.logoTitle}>APO Golf Club</div>
             <div style={styles.logoSubtitle}>USA</div>
-            </div>
+          </div>
         </div>
 
-        {/* === Nav Links === */}
+        {/* Nav Links */}
         <ul style={styles.navLinks}>
-            {navLinks.map((item, idx) => {
+          {navLinks.map((item, idx) => {
             const isActive = activeDropdown === item.title;
             return (
-                <li
-                key={idx}
-                style={styles.navItem}
-                onClick={() =>
-                    setActiveDropdown(isActive ? null : item.title)
-                } // ✅ toggle on click
+              <li key={idx} style={styles.navItem}>
+                <div
+                  style={styles.navLinkContainer}
+                  onClick={() => {
+                    if (item.submenu) {
+                      setActiveDropdown(isActive ? null : item.title);
+                    } else if (item.path) {
+                      navigate(item.path);
+                      setActiveDropdown(null);
+                    }
+                  }}
                 >
-                <div style={styles.navLinkContainer}>
-                    <span style={styles.navLink}>{item.title}</span>
-                    {item.submenu && (
+                  <span style={styles.navLink}>{item.title}</span>
+                  {item.submenu && (
                     <ChevronDown
-                        size={16}
-                        color="#1f2937"
-                        style={{
+                      size={16}
+                      color="#1f2937"
+                      style={{
                         marginLeft: "4px",
                         transform: isActive ? "rotate(180deg)" : "rotate(0deg)",
                         transition: "transform 0.2s ease",
-                        }}
+                      }}
                     />
-                    )}
+                  )}
                 </div>
 
-                {/* Dropdown (Click-Activated) */}
+                {/* Dropdown Menu */}
                 {isActive && item.submenu && (
-                    <div style={styles.dropdown}>
+                  <div style={styles.dropdown}>
                     {item.submenu.map((sub, i) => (
-                        <div
+                      <div
                         key={i}
                         style={styles.dropdownItem}
-                        onClick={() => setActiveDropdown(null)} // ✅ closes after selection
-                        >
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (sub.path) navigate(sub.path);
+                          setActiveDropdown(null);
+                        }}
+                      >
                         <div style={styles.dropdownTitle}>{sub.title}</div>
-                        <div style={styles.dropdownSubtitle}>{sub.subtitle}</div>
+                        <div style={styles.dropdownSubtitle}>
+                          {sub.subtitle}
                         </div>
+                      </div>
                     ))}
-                    </div>
+                  </div>
                 )}
-                </li>
+              </li>
             );
-            })}
+          })}
         </ul>
-        </div>
+      </div>
     </nav>
-    );
-    }
+  );
+}
 
-// ===== MENU DATA =====
+// Menu Data Updated to reflect document instructions
 const navLinks = [
   {
     title: "About Us",
     submenu: [
-      { title: "Who We Are", subtitle: "Mission, vision, and club goals" },
-      { title: "APO History", subtitle: "Brief history of Alpha Phi Omega" },
-      { title: "APO Golf Club History", subtitle: "How and when the club started" },
-      { title: "Previous Officers", subtitle: "Year-by-year leadership" },
-      { title: "Current Officers", subtitle: "Photos, positions, short bios" },
-      { title: "Bylaws", subtitle: "PDF download or embedded document" },
+      {
+        title: "APO History",
+        subtitle: "Brief history of Alpha Phi Omega",
+        path: "/apo-history",
+      },
+      {
+        title: "APOGC History",
+        subtitle: "How and when the club started",
+        path: "/apogc-history",
+      },
+      {
+        title: "Officers",
+        subtitle: "Who Represents APOGC USA",
+        path: "/officers",
+      },
+      {
+        title: "Bylaws",
+        subtitle: "PDF download or embedded document",
+        path: "/bylaws",
+      },
     ],
   },
-  { title: "Tournaments" },
-  { title: "Members" },
-  { title: "Announcements" },
-  { title: "Media" },
-  { title: "Contact" },
+  { title: "Tournaments", path: "/tournaments" },
+  { title: "Service", path: "/service" },
+  { title: "Members", path: "/members" },
 ];
 
-// ===== STYLES =====
+// Styles
 const styles = {
   navbar: {
     width: "100%",
@@ -205,6 +245,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "0.75rem",
+    cursor: "pointer",
   },
   logoImage: {
     width: "50px",
@@ -224,7 +265,11 @@ const styles = {
     padding: 0,
   },
   navItem: { position: "relative" },
-  navLinkContainer: { display: "flex", alignItems: "center", cursor: "pointer" },
+  navLinkContainer: {
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+  },
   navLink: {
     fontWeight: 600,
     color: "#1f2937",
@@ -254,7 +299,7 @@ const styles = {
   dropdownTitle: { fontWeight: "700", fontSize: "1rem", color: "#002b7f" },
   dropdownSubtitle: { fontSize: "0.85rem", color: "#555" },
 
-  // === MOBILE ===
+  // Mobile
   menuIcon: { cursor: "pointer" },
   mobileMenu: {
     backgroundColor: "#fff",
@@ -282,5 +327,6 @@ const styles = {
   mobileDropdownItem: {
     borderLeft: "2px solid #002b7f",
     paddingLeft: "0.75rem",
+    cursor: "pointer",
   },
 };

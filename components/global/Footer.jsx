@@ -1,5 +1,12 @@
 import React from "react";
-import { Facebook, Instagram, Youtube, Twitter, Mail, Phone } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  Mail,
+  Phone,
+} from "lucide-react";
 import logo from "../../src/assets/logo1.png";
 
 export default function Footer() {
@@ -10,7 +17,11 @@ export default function Footer() {
         <div style={styles.column}>
           <div style={styles.logoRow}>
             <div style={styles.logoWrapper}>
-              <img src={logo} alt="APO Golf Club Logo" style={styles.logoImage} />
+              <img
+                src={logo}
+                alt="APO Golf Club Logo"
+                style={styles.logoImage}
+              />
             </div>
             <div>
               <h3 style={styles.clubName}>APO Golf Club USA</h3>
@@ -18,8 +29,8 @@ export default function Footer() {
             </div>
           </div>
           <p style={styles.about}>
-            A fellowship of Alpha Phi Omega alumni and friends who share a passion for golf,
-            brotherhood, and community service.
+            A fellowship of Alpha Phi Omega alumni and friends who share a
+            passion for golf, brotherhood, and community service.
           </p>
         </div>
 
@@ -28,12 +39,14 @@ export default function Footer() {
           <h4 style={styles.heading}>Contact Us</h4>
           <div style={styles.contactItem}>
             <Mail size={18} color="#FFD700" style={styles.icon} />
-            <span style={styles.contactText}>connect@apogolfclubusa.org</span>
+            <span style={styles.contactText}>APOGCUSA.1925@gmail.com</span>
           </div>
-          <div style={styles.contactItem}>
+          {/* <div style={styles.contactItem}>
             <Phone size={18} color="#FFD700" style={styles.icon} />
-            <span style={styles.contactText}>Regional Coordinators Available</span>
-          </div>
+            <span style={styles.contactText}>
+              Regional Coordinators Available
+            </span>
+          </div> */}
         </div>
 
         {/* RIGHT SECTION */}
@@ -63,7 +76,8 @@ export default function Footer() {
       {/* BOTTOM BAR */}
       <div style={styles.bottomBar}>
         <p style={styles.bottomText}>
-          © {new Date().getFullYear()} - BSCS | Alpha Phi Omega Golf Club USA. All rights reserved. 
+          © {new Date().getFullYear()} - BSCS | Alpha Phi Omega Golf Club USA.
+          All rights reserved.
         </p>
       </div>
     </footer>
@@ -72,21 +86,21 @@ export default function Footer() {
 
 const styles = {
   logoWrapper: {
-  width: "60px",
-  height: "60px",
-  borderRadius: "50%",
-  overflow: "hidden",      // ✅ ensures the image stays circular
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "#FFD700", // optional — keeps a border effect if logo has transparency
-  flexShrink: 0,
-},
-logoImage: {
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",      // ✅ makes sure it fills the circle evenly
-},
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    overflow: "hidden", // ✅ ensures the image stays circular
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFD700", // optional — keeps a border effect if logo has transparency
+    flexShrink: 0,
+  },
+  logoImage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover", // ✅ makes sure it fills the circle evenly
+  },
   footer: {
     backgroundColor: "#002b7f",
     color: "white",

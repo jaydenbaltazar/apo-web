@@ -13,7 +13,7 @@ const regions = [
   {
     name: "South Region",
     description:
-      "Centered around San Diego. Members enjoy year-round sunshine and stunning coastal courses. Sama madala kami sa Torry Pines at local rates.",
+      "Centered around San Diego. Members enjoy year-round sunshine and stunning coastal courses. Sama madala kami sa Torrey Pines at local rates.",
     gradient: "linear-gradient(to right, #14b8a6, #0d9488)", // teal
   },
   {
@@ -25,7 +25,7 @@ const regions = [
   {
     name: "West Region",
     description:
-      "Covering Long Beach and surrounding areas. The West Region is known for vibrant tournaments and social events. Masarap din magpakaim at malakas magpainom.",
+      "Covering Long Beach and surrounding areas. The West Region is known for vibrant tournaments and social events. Masarap din magpakain at malakas magpainom.",
     gradient: "linear-gradient(to right, #8b5cf6, #7c3aed)", // purple
   },
 ];
@@ -39,7 +39,8 @@ export default function RegionsSection() {
           <h2 style={styles.title}>Our Regions</h2>
           <div style={styles.underline}></div>
           <p style={styles.subtitle}>
-            Our club operates across four dynamic regions in Southern California, each hosting monthly tournaments.
+            Our club operates across four dynamic regions in Southern
+            California, each hosting monthly tournaments.
           </p>
         </div>
 
@@ -47,7 +48,9 @@ export default function RegionsSection() {
         <div style={styles.grid}>
           {regions.map((region, idx) => (
             <RegionsCard key={idx}>
-              <div style={{ ...styles.gradientBar, background: region.gradient }} />
+              <div
+                style={{ ...styles.gradientBar, background: region.gradient }}
+              />
               <CardContent>
                 <div style={styles.regionRow}>
                   <div

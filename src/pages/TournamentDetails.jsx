@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   MapPin,
@@ -8,61 +8,46 @@ import {
   Hotel,
   Award,
 } from "lucide-react";
-import Card from "../../components/tourney/Card"
-import CardContent from "../../components/tourney/CardContent"
+import Card from "../../components/tourney/Card";
+import CardContent from "../../components/tourney/CardContent";
 import Button from "../../components/global/Button";
 import Footer from "../../components/global/Footer";
-
-const players = [
-  {
-    flight: 1,
-    time: "9:50",
-    names: ["Jay Baltazar", "Ed Mendoza", "Roland Paras", "Doc Rolly Franco"],
-  },
-  {
-    flight: 2,
-    time: "10:00",
-    names: ["Sancho Sy", "Lope Cristobal", "Nards Castillo", "Bobet Peneza"],
-  },
-  {
-    flight: 3,
-    time: "10:10",
-    names: ["Rocky Marte", "Manny Figuerres", "Pastor Dennis Casaje", "Nemie Mosequera"],
-  },
-  {
-    flight: 4,
-    time: "10:20",
-    names: ["Oca Atienza", "Jimmy Magsino", "PJ Aclan", "Sonny Martinez"],
-  },
-  {
-    flight: 5,
-    time: "10:30",
-    names: ["Raul Medina", "Raul Sambitan", "Angel Pangilinan", "Mike Melendez"],
-  },
-  {
-    flight: 6,
-    time: "10:40",
-    names: ["Doc Eric Serrano", "Boy Medina", "Paco Franco", "Stephen Castro"],
-  },
-  {
-    flight: 7,
-    time: "10:50",
-    names: ["Pris Tanglao", "Kaye Sumicad", "Flor Mendoza"],
-  },
-  {
-    flight: 8,
-    time: "11:00",
-    names: ["Bobet Lara", "Beeboy Mansilla"],
-  },
-];
+import { tournamentsData } from "../data/tournamentInfo";
 
 export default function TournamentDetails() {
   const navigate = useNavigate();
+
+  const { id } = useParams();
+
+  const tournament = tournamentsData.find((t) => t.id === id);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (!tournament) {
+    return (
+      <div style={{ padding: "8rem 2rem", textAlign: "center" }}>
+        <h2>Tournament not found.</h2>
+        <Button
+          onClick={() => navigate("/tournaments")}
+          label="Back to Tournaments"
+        />
+      </div>
+    );
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  if (!tournament) {
+    return (
+      <div style={{ padding: "4rem", textAlign: "center" }}>
+        Tournament not found.
+      </div>
+    );
+  }
 
   return (
     <div style={styles.page}>
@@ -79,267 +64,307 @@ export default function TournamentDetails() {
             }
             fullWidth={false}
           />
-          <h1 style={styles.headerTitle}>November 2025 Tournament</h1>
+          <h1 style={styles.headerTitle}>{tournament.title}</h1>
           <p style={styles.headerSubtitle}>
-            Sterling Hills Golf Club • Camarillo, CA
+            {tournament.venue} • {tournament.location}
           </p>
         </div>
       </div>
 
       <div style={styles.container}>
-        {/* === WINNERS CARD === */}
-        <Card>
-        <CardContent>
-            <div style={winnersStyles.header}>
-            <div style={winnersStyles.iconCircle}>
-                <Trophy size={22} color="#ffd700" />
-            </div>
-            <h2 style={winnersStyles.title}>Winners</h2>
-            </div>
+        {/* === WINNERS CARD (Only renders if winners exist) === */}
+        {tournament.winners && (
+          <Card>
+            <CardContent>
+              <div style={winnersStyles.header}>
+                <div style={winnersStyles.iconCircle}>
+                  <Trophy size={22} color="#ffd700" />
+                </div>
+                <h2 style={winnersStyles.title}>Winners</h2>
+              </div>
 
-            <div style={winnersStyles.gridTwo}>
-            <div style={winnersStyles.column}>
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Class A</h3>
-                <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>PJ Aclan</span>
-                </p>
-                <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>Nards Castillo</span>
-                </p>
+              <div style={winnersStyles.gridTwo}>
+                <div style={winnersStyles.column}>
+                  {tournament.winners.classA && (
+                    <div style={winnersStyles.section}>
+                      <h3 style={winnersStyles.subTitle}>Class A</h3>
+                      <p style={winnersStyles.label}>
+                        Champion:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classA.champ}
+                        </span>
+                      </p>
+                      <p style={winnersStyles.label}>
+                        Runner Up:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classA.runnerUp}
+                        </span>
+                      </p>
+                    </div>
+                  )}
+
+                  {tournament.winners.classB && (
+                    <div style={winnersStyles.section}>
+                      <h3 style={winnersStyles.subTitle}>Class B</h3>
+                      <p style={winnersStyles.label}>
+                        Champion:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classB.champ}
+                        </span>
+                      </p>
+                      <p style={winnersStyles.label}>
+                        Runner Up:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classB.runnerUp}
+                        </span>
+                      </p>
+                    </div>
+                  )}
+
+                  {tournament.winners.classC && (
+                    <div style={winnersStyles.section}>
+                      <h3 style={winnersStyles.subTitle}>Class C</h3>
+                      <p style={winnersStyles.label}>
+                        Champion:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classC.champ}
+                        </span>
+                      </p>
+                      <p style={winnersStyles.label}>
+                        Runner Up:{" "}
+                        <span style={winnersStyles.value}>
+                          {tournament.winners.classC.runnerUp}
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
 
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Class B</h3>
-                <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>Nemie Mosequera</span>
-                </p>
-                <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>Boy Medina</span>
-                </p>
-                </div>
+                <div style={winnersStyles.column}>
+                  {tournament.winners.overall && (
+                    <div style={winnersStyles.section}>
+                      <h3 style={winnersStyles.subTitle}>
+                        Overall Low Net Champion
+                      </h3>
+                      <p style={winnersStyles.value}>
+                        {tournament.winners.overall}
+                      </p>
+                    </div>
+                  )}
 
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Class C</h3>
-                <p style={winnersStyles.label}>
-                    Champion: <span style={winnersStyles.value}>Eric Serrano</span>
-                </p>
-                <p style={winnersStyles.label}>
-                    Runner Up: <span style={winnersStyles.value}>Rocky Marte</span>
-                </p>
+                  {tournament.winners.closestToPin &&
+                    tournament.winners.closestToPin.length > 0 && (
+                      <div style={winnersStyles.section}>
+                        <h3 style={winnersStyles.subTitle}>
+                          Closest to the Pin
+                        </h3>
+                        {tournament.winners.closestToPin.map((pin, idx) => (
+                          <p key={idx} style={winnersStyles.label}>
+                            {pin.hole}:{" "}
+                            <span style={winnersStyles.value}>
+                              {pin.winner}
+                            </span>
+                          </p>
+                        ))}
+                      </div>
+                    )}
                 </div>
-            </div>
-
-            <div style={winnersStyles.column}>
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Overall Low Net Champion</h3>
-                <p style={winnersStyles.value}>Bobet Lara</p>
-                </div>
-
-                <div style={winnersStyles.section}>
-                <h3 style={winnersStyles.subTitle}>Closest to the Pin</h3>
-                <p style={winnersStyles.label}>
-                    Hole #8: <span style={winnersStyles.value}>Raul Medina</span>
-                </p>
-                <p style={winnersStyles.label}>
-                    Hole #15: <span style={winnersStyles.value}>Pris Tanglao</span>
-                </p>
-                <p style={winnersStyles.label}>
-                    Hole #11 (Sponsored by Doc Rolly Franco): 
-                    <span style={winnersStyles.value}>Ed Mendoza</span>
-                </p>
-                </div>
-            </div>
-            </div>
-        </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* === COURSE INFORMATION CARD === */}
         <Card>
-        <CardContent>
-            {/* Header */}
+          <CardContent>
             <div style={courseStyles.header}>
-            <div style={courseStyles.iconCircle}>
+              <div style={courseStyles.iconCircle}>
                 <MapPin size={22} color="#ffd700" />
-            </div>
-            <h2 style={courseStyles.title}>Course Information</h2>
+              </div>
+              <h2 style={courseStyles.title}>Course Information</h2>
             </div>
 
-            {/* Two Columns */}
             <div style={courseStyles.grid}>
-            {/* Left Column */}
-            <div style={courseStyles.column}>
-                <h3 style={courseStyles.subTitle}>Sterling Hills Golf Club</h3>
-                <p style={courseStyles.text}>
-                901 Sterling Hills Drive <br />
-                Camarillo, CA 93010
+              <div style={courseStyles.column}>
+                <h3 style={courseStyles.subTitle}>{tournament.venue}</h3>
+                <p style={{ ...courseStyles.subText, whiteSpace: "pre-line" }}>
+                  {tournament.courseInfo?.address || "Address TBD"}
                 </p>
 
                 <div style={courseStyles.infoList}>
-                <div style={courseStyles.infoRow}>
+                  <div style={courseStyles.infoRow}>
                     <span style={courseStyles.label}>Par:</span>
-                    <span style={courseStyles.value}>71</span>
-                </div>
-                <div style={courseStyles.infoRow}>
-                    <span style={courseStyles.label}>White Tees:</span>
-                    <span style={courseStyles.value}>M 67.5/117 | W 72.9/126</span>
-                </div>
-                <div style={courseStyles.infoRow}>
-                    <span style={courseStyles.label}>Red Tees:</span>
-                    <span style={courseStyles.value}>M 63.1/106 | W 67.5/112</span>
-                </div>
-                </div>
-            </div>
-
-            {/* Right Column */}
-            <div style={courseStyles.column}>
-                <h3 style={courseStyles.accomTitle}>
-                <Hotel size={18} color="#002b7f" style={{ marginRight: 6 }} />
-                Accommodations
-                </h3>
-                <p style={courseStyles.text}>Courtyard by Marriott</p>
-                <p style={courseStyles.subText}>
-                1710 Newbury Rd <br />
-                Thousand Oaks, CA
-                </p>
-            </div>
-            </div>
-        </CardContent>
-        </Card>
-
-
-
-        {/* Event Schedule */}
-        <Card>
-          <CardContent>
-            <div style={styles.sectionHeader}>
-              <div style={styles.iconCircleBlue}>
-                <Calendar size={24} color="#ffd700" />
-              </div>
-              <h2 style={styles.sectionTitle}>Event Schedule</h2>
-            </div>
-
-            <div style={styles.gridThree}>
-              {["Annual Meeting", "Election", "Awards Ceremony", "Fellowship", "Raffle"].map(
-                (item, idx) => (
-                  <div key={idx} style={styles.scheduleItem}>
-                    <p style={styles.scheduleText}>{item}</p>
+                    <span style={courseStyles.value}>
+                      {tournament.courseInfo?.par || "TBD"}
+                    </span>
                   </div>
-                )
+                  <div style={courseStyles.infoRow}>
+                    <span style={courseStyles.label}>White Tees:</span>
+                    <span style={courseStyles.value}>
+                      {tournament.courseInfo?.whiteTees || "TBD"}
+                    </span>
+                  </div>
+                  <div style={courseStyles.infoRow}>
+                    <span style={courseStyles.label}>Red Tees:</span>
+                    <span style={courseStyles.value}>
+                      {tournament.courseInfo?.redTees || "TBD"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Only render accommodations if the data exists */}
+              {tournament.accommodations && (
+                <div style={courseStyles.column}>
+                  <h3 style={courseStyles.accomTitle}>
+                    <Hotel
+                      size={18}
+                      color="#002b7f"
+                      style={{ marginRight: 6 }}
+                    />
+                    Accommodations
+                  </h3>
+                  <p style={courseStyles.text}>
+                    {tournament.accommodations.name}
+                  </p>
+                  <p
+                    style={{ ...courseStyles.subText, whiteSpace: "pre-line" }}
+                  >
+                    {tournament.accommodations.address}
+                  </p>
+                </div>
               )}
             </div>
           </CardContent>
         </Card>
 
-        {/* Closest to the Pin */}
-        <Card>
-          <CardContent>
-            
-            <div style={styles.sectionHeader}>
-              <div style={styles.iconCircleBlue}>
-                <Award size={24} color="#ffd700" />
+        {/* === EVENT SCHEDULE === */}
+        {tournament.schedule && tournament.schedule.length > 0 && (
+          <Card>
+            <CardContent>
+              <div style={styles.sectionHeader}>
+                <div style={styles.iconCircleBlue}>
+                  <Calendar size={24} color="#ffd700" />
+                </div>
+                <h2 style={styles.sectionTitle}>Event Schedule</h2>
               </div>
-              <h2 style={styles.sectionTitle}>Closest to the Pin</h2>
-            </div>
 
-            {/* Two Columns */}
-            <div style={courseStyles.grid}>
-            {/* Left Column */}
-            <div style={courseStyles.column}>
-                <h3 style={styles.subTitle}>Hole 8 Par 3</h3>
-                  <div style={styles.infoList}>
-                    <div style={styles.infoRow}>
-                      <span style={styles.infoLabel}>White:</span>
-                      <span style={styles.infoValue}>136 Yards</span>
+              {/* NEW TIMELINE DESIGN */}
+              <div style={styles.timelineContainer}>
+                {tournament.schedule.map((item, idx) => (
+                  <div key={idx} style={styles.timelineItem}>
+                    {/* Left side: Node and Line */}
+                    <div style={styles.timelineNode}>
+                      <div style={styles.timelineDot}>{idx + 1}</div>
+                      {/* Don't draw the line after the very last item */}
+                      {idx !== tournament.schedule.length - 1 && (
+                        <div style={styles.timelineLine}></div>
+                      )}
                     </div>
-                    <div style={styles.infoRow}>
-                      <span style={styles.infoLabel}>Red: </span>
-                      <span style={styles.infoValue}>131 Yards</span>
+
+                    {/* Right side: Content */}
+                    <div style={styles.timelineContent}>
+                      <p style={styles.timelineText}>{item}</p>
                     </div>
                   </div>
-            </div>
-
-            {/* Right Column */}
-            <div style={courseStyles.column}>
-                <h3 style={styles.subTitle}>Hole 15 Par 3</h3>
-                  <div style={styles.infoList}>
-                    <div style={styles.infoRow}>
-                      <span style={styles.infoLabel}>White:</span>
-                      <span style={styles.infoValue}>146 Yards</span>
-                    </div>
-                    <div style={styles.infoRow}>
-                      <span style={styles.infoLabel}>Red: </span>
-                      <span style={styles.infoValue}>125 Yards</span>
-                    </div>
-                  </div>
-            </div>
-            </div>
-
-            <div style={styles.rulesBox}>
-              <p style={styles.rulesText}>
-                <strong>Rules:</strong> Closest-to-the-pin is won by the golfer whose
-                tee shot comes to rest closest to the hole. To win, the ball must
-                have stopped on the green. Any balls off the green are ignored,
-                even if they are the closest.
-              </p>
-            </div>
-
-            {/* <div style={styles.mapPlaceholder}>
-              <MapPin size={40} color="#fff" />
-              <p style={styles.mapText}>Course Map Placeholder</p>
-            </div> */}
-          </CardContent>
-        </Card>
-
-        {/* Players Table */}
-        <Card>
-          <CardContent>
-            <div style={styles.sectionHeader}>
-              <div style={styles.iconCircleBlue}>
-                <Trophy size={24} color="#ffd700" />
+                ))}
               </div>
-              <h2 style={styles.sectionTitle}>Players</h2>
-            </div>
+            </CardContent>
+          </Card>
+        )}
 
-            <div style={styles.tableWrapper}>
-              <table style={styles.table}>
-                <thead>
-                  <tr style={styles.tableHeadRow}>
-                    <th style={styles.tableHeader}>Flight</th>
-                    <th style={styles.tableHeader}>Time</th>
-                    <th style={styles.tableHeader}>Players</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {players.map((player, idx) => (
-                    <tr
-                      key={idx}
-                      style={{
-                        backgroundColor: idx % 2 === 0 ? "#f9fafb" : "#fff",
-                      }}
-                    >
-                      <td style={styles.flightCell}>{player.flight}</td>
-                      <td style={styles.timeCell}>{player.time}</td>
-                      <td style={styles.playersCell}>
-                        {player.names.map((name, nIdx) => (
-                          <div key={nIdx} style={styles.playerName}>
-                            {name}
-                          </div>
-                        ))}
-                      </td>
-                    </tr>
+        {/* === CLOSEST TO THE PIN (Course Details) === */}
+        {tournament.closestToPinHoles &&
+          tournament.closestToPinHoles.length > 0 && (
+            <Card>
+              <CardContent>
+                <div style={styles.sectionHeader}>
+                  <div style={styles.iconCircleBlue}>
+                    <Award size={24} color="#ffd700" />
+                  </div>
+                  <h2 style={styles.sectionTitle}>Closest to the Pin</h2>
+                </div>
+
+                <div style={courseStyles.grid}>
+                  {tournament.closestToPinHoles.map((holeInfo, idx) => (
+                    <div key={idx} style={courseStyles.column}>
+                      <h3 style={styles.subTitle}>{holeInfo.hole}</h3>
+                      <div style={styles.infoList}>
+                        <div style={styles.infoRow}>
+                          <span style={styles.infoLabel}>White:</span>
+                          <span style={styles.infoValue}>{holeInfo.white}</span>
+                        </div>
+                        <div style={styles.infoRow}>
+                          <span style={styles.infoLabel}>Red: </span>
+                          <span style={styles.infoValue}>{holeInfo.red}</span>
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+
+                <div style={styles.rulesBox}>
+                  <p style={styles.rulesText}>
+                    <strong>Rules:</strong> Closest-to-the-pin is won by the
+                    golfer whose tee shot comes to rest closest to the hole. To
+                    win, the ball must have stopped on the green. Any balls off
+                    the green are ignored, even if they are the closest.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+        {/* === PLAYERS TABLE === */}
+        {tournament.players && tournament.players.length > 0 && (
+          <Card>
+            <CardContent>
+              <div style={styles.sectionHeader}>
+                <div style={styles.iconCircleBlue}>
+                  <Trophy size={24} color="#ffd700" />
+                </div>
+                <h2 style={styles.sectionTitle}>Players</h2>
+              </div>
+
+              <div style={styles.tableWrapper}>
+                <table style={styles.table}>
+                  <thead>
+                    <tr style={styles.tableHeadRow}>
+                      <th style={styles.tableHeader}>Flight</th>
+                      <th style={styles.tableHeader}>Time</th>
+                      <th style={styles.tableHeader}>Players</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tournament.players.map((player, idx) => (
+                      <tr
+                        key={idx}
+                        style={{
+                          backgroundColor: idx % 2 === 0 ? "#f9fafb" : "#fff",
+                        }}
+                      >
+                        <td style={styles.flightCell}>{player.flight}</td>
+                        <td style={styles.timeCell}>{player.time}</td>
+                        <td style={styles.playersCell}>
+                          {player.names.map((name, nIdx) => (
+                            <div key={nIdx} style={styles.playerName}>
+                              {name}
+                            </div>
+                          ))}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
-
 
 const styles = {
   page: {
@@ -347,7 +372,7 @@ const styles = {
     width: "100vw",
     background: "linear-gradient(to bottom, #f9fafb, #fff)",
   },
-    header: {
+  header: {
     backgroundImage: `
         linear-gradient(
         rgba(0, 43, 127, 0.6),
@@ -361,8 +386,7 @@ const styles = {
     color: "white",
     padding: "4rem 1rem",
     textAlign: "left",
-    },
-
+  },
   headerInner: {
     maxWidth: "1100px",
     margin: "0 auto",
@@ -426,7 +450,6 @@ const styles = {
     flexWrap: "wrap",
     gap: "1rem",
     alignItems: "stretch",
-
   },
   subTitle: {
     fontSize: "1.1rem",
@@ -461,21 +484,54 @@ const styles = {
     color: "#002b7f",
     fontWeight: "600",
   },
-  scheduleItem: {
-    flex: "1 1 200px",
-    background: "linear-gradient(to bottom right, #f9fafb, #fff)",
-    border: "1px solid #e5e7eb",
-    borderRadius: "8px",
-    padding: "1rem",
-    display: "flex",          // ✅ ensures text aligns to bottom consistently
-    alignItems: "center",     // centers content vertically
-    justifyContent: "center", // centers horizontally
-    textAlign: "center",      // nice uniform text placement
-    boxSizing: "border-box",
+  // --- NEW TIMELINE STYLES ---
+  timelineContainer: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "2rem",
+    paddingLeft: "0.5rem",
   },
-  scheduleText: {
-    fontWeight: "500",
-    color: "#111",
+  timelineItem: {
+    display: "flex",
+    minHeight: "60px", // Gives vertical space for the connecting line
+  },
+  timelineNode: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginRight: "1.5rem",
+  },
+  timelineDot: {
+    width: "32px",
+    height: "32px",
+    borderRadius: "50%",
+    backgroundColor: "#f8fafc", // Very light background
+    border: "2px solid #002b7f", // Blue border
+    color: "#002b7f",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "0.9rem",
+    fontWeight: "bold",
+    zIndex: 1, // Keeps the dot above the line
+  },
+  timelineLine: {
+    flex: 1, // Stretches to fill the remaining vertical space
+    width: "2px",
+    backgroundColor: "#e2e8f0", // Light gray line
+    marginTop: "4px",
+    marginBottom: "4px",
+  },
+  timelineContent: {
+    paddingBottom: "2rem", // Spacing below the text
+    paddingTop: "5px", // Aligns the text perfectly with the dot
+  },
+  timelineText: {
+    fontSize: "1.1rem",
+    color: "#1f2937",
+    fontWeight: "600",
+    margin: 0,
+    lineHeight: "1.4",
   },
   rulesBox: {
     backgroundColor: "#e0ecff",
@@ -492,8 +548,7 @@ const styles = {
   mapPlaceholder: {
     marginTop: "1.5rem",
     height: "250px",
-    background:
-      "linear-gradient(to bottom right, #22c55e, #047857)",
+    background: "linear-gradient(to bottom right, #22c55e, #047857)",
     borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
@@ -637,8 +692,6 @@ const winnersStyles = {
     fontWeight: "700",
     color: "#002b7f",
   },
-
-  // ===== GRID (2 Columns) =====
   gridTwo: {
     display: "flex",
     flexWrap: "wrap",
@@ -646,14 +699,12 @@ const winnersStyles = {
     gap: "2rem",
   },
   column: {
-    flex: "1 1 48%",        // ✅ Two equal columns
-    minWidth: "340px",      // Wraps nicely on smaller screens
+    flex: "1 1 48%",
+    minWidth: "340px",
     display: "flex",
     flexDirection: "column",
     gap: "1.2rem",
   },
-
-  // ===== SECTION (each card) =====
   section: {
     backgroundColor: "#f9fafb",
     borderRadius: "10px",
@@ -663,11 +714,10 @@ const winnersStyles = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    minHeight: "150px",     // ✅ uniform height
+    minHeight: "150px",
     boxSizing: "border-box",
     maxWidth: "85%",
   },
-
   subTitle: {
     fontSize: "1.1rem",
     fontWeight: "700",

@@ -3,9 +3,45 @@ import { useNavigate } from "react-router-dom";
 import { Calendar, MapPin, Trophy, DollarSign, Clock } from "lucide-react";
 import Card from "../global/Card";
 import Button from "../global/Button";
+import { tournamentsData } from "../../src/data/tournamentInfo";
 
 export default function NextTournament() {
   const navigate = useNavigate();
+
+  const nextTournament = tournamentsData.find((t) => t.status === "future");
+
+  if (!nextTournament) {
+    return (
+      <section style={styles.section}>
+        <div style={styles.container}>
+          <div style={styles.header}>
+            <h2 style={styles.title}>Next Tournament</h2>
+            <div style={styles.underline}></div>
+            <p style={{ marginTop: "2rem", color: "#666" }}>
+              Check back soon for our upcoming events!
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // 👇 4. Build the rows dynamically based on the found tournament
+  const infoRows = [
+    { icon: Calendar, label: "Date", value: nextTournament.date },
+    {
+      icon: MapPin,
+      label: "Region",
+      value: `${nextTournament.location} (Hosted by ${nextTournament.host})`,
+    },
+    { icon: Trophy, label: "Venue", value: nextTournament.venue },
+    {
+      icon: Clock,
+      label: "Format • Start",
+      value: `${nextTournament.format} • ${nextTournament.time}`,
+    },
+    { icon: DollarSign, label: "Fee", value: nextTournament.fee },
+  ];
 
   return (
     <section style={styles.section}>
@@ -23,8 +59,7 @@ export default function NextTournament() {
             <div
               style={{
                 ...styles.image,
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1000')",
+                backgroundImage: `url('${nextTournament.image}')`,
               }}
             ></div>
 
@@ -48,7 +83,8 @@ export default function NextTournament() {
                 <div style={{ marginTop: "1.5rem", width: "100%" }}>
                   <Button
                     label="More Information"
-                    onClick={() => navigate("/TournamentDetails")}
+                    // 👇 6. Navigate to the dynamic URL using the correct ID
+                    onClick={() => navigate(`/tournament/${nextTournament.id}`)}
                     fullWidth
                   />
                 </div>
@@ -61,14 +97,7 @@ export default function NextTournament() {
   );
 }
 
-const infoRows = [
-  { icon: Calendar, label: "Date", value: "November 8, 2025" },
-  { icon: MapPin, label: "Region", value: "North (Hosted by the Valley Boys)" },
-  { icon: Trophy, label: "Venue", value: "Sterling Hills Golf Club, Camarillo, CA" },
-  { icon: Clock, label: "Format • Start", value: "Handicap Stroke Play • 9:50 AM" },
-  { icon: DollarSign, label: "Fee", value: "$115/player" },
-];
-
+// Styles remain exactly the same
 const styles = {
   section: {
     width: "100%",
@@ -98,19 +127,20 @@ const styles = {
   },
   cardContent: {
     display: "flex",
-    flexWrap: "wrap", // ✅ makes it wrap on smaller screens
+    flexWrap: "wrap",
     borderRadius: "16px",
     overflow: "hidden",
     boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
     backgroundColor: "#fff",
+    padding: "1rem",
   },
   image: {
-    flex: "1 1 400px", // grows but keeps minimum width
+    flex: "1 1 300px",
     minWidth: "300px",
-    height: "auto",
-    aspectRatio: "4 / 3",
-    backgroundSize: "cover",
+    minHeight: "300px",
+    backgroundSize: "contain",
     backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   },
   details: {
     flex: "1 1 400px",

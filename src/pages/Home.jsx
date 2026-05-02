@@ -1,5 +1,5 @@
 import React from "react";
-import HeroSection from "../../components/home/HeroSection"
+import HeroSection from "../../components/home/HeroSection";
 import NextTournament from "../../components/home/NextTournament";
 import RegionsSection from "../../components/home/RegionsSection";
 import AnnouncementsSection from "../../components/home/AnnouncementsSection";
@@ -9,12 +9,12 @@ import NavBar from "../../components/nav/NavBar";
 export default function Home() {
   return (
     <div style={styles.container}>
-      <NavBar/>
+      <NavBar />
       <HeroSection />
       <NextTournament />
       <RegionsSection />
-      <AnnouncementsSection />
-      <Footer/>
+      {/* <AnnouncementsSection /> */}
+      <Footer />
     </div>
   );
 }
@@ -29,4 +29,4 @@ const styles = {
     boxSizing: "border-box",
     overflowX: "hidden",
   },
-}
+};

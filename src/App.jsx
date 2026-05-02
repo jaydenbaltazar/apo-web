@@ -1,14 +1,27 @@
-// /src/App.jsx
+// src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import TournamentDetails from "./pages/TournamentDetails";
+import Service from "./pages/Service";
+import Tournaments from "./pages/Tournaments";
+import Bylaws from "./pages/Bylaws";
+import Members from "./pages/Members";
+import ApoHistory from "./pages/Apohistory";
+import ApogcHistory from "./pages/ApogcHistory";
+import Officers from "./pages/Officers";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/tournamentdetails" element={<TournamentDetails />} />
-
+      <Route path="/tournament/:id" element={<TournamentDetails />} />
+      <Route path="/service" element={<Service />} />
+      <Route path="/tournaments" element={<Tournaments />} />
+      <Route path="/bylaws" element={<Bylaws />} />
+      <Route path="/members" element={<Members />} />
+      <Route path="/apo-history" element={<ApoHistory />} />
+      <Route path="/apogc-history" element={<ApogcHistory />} />
+      <Route path="/officers" element={<Officers />} />
     </Routes>
   );
 }
