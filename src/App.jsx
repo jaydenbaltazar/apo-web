@@ -6,7 +6,7 @@ import Service from "./pages/Service";
 import Tournaments from "./pages/Tournaments";
 import Bylaws from "./pages/Bylaws";
 import Members from "./pages/Members";
-import ApoHistory from "./pages/Apohistory";
+import ApoHistory from "./pages/ApoHistory";
 import ApogcHistory from "./pages/ApogcHistory";
 import Officers from "./pages/Officers";
 
