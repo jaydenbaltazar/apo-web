@@ -34,7 +34,20 @@ export const tournamentsData = [
       "Club Meeting",
       "Fellowship",
     ],
-    winners: null,
+    winners: {
+      overall: "",
+      classA: { champ: "", runnerUp: "" },
+      classB: { champ: "", runnerUp: "" },
+      classC: { champ: "", runnerUp: "" },
+      closestToPin: [
+        { hole: "Hole #8", winner: "" },
+        { hole: "Hole #15", winner: "" },
+        {
+          hole: "Hole #11",
+          winner: "",
+        },
+      ],
+    },
     players: [
       {
         flight: 1,
@@ -49,25 +62,25 @@ export const tournamentsData = [
       {
         flight: 2,
         time: "10:40",
-        names: ["Bobet Lara", "Audie Grey", "Nards Castillo", "Mike Melendez"],
+        names: [
+          "Bobet Lara",
+          "Roehl Reyes",
+          "Doc Eric Serrano",
+          "Ruel Umandal",
+        ],
       },
       {
         flight: 3,
         time: "10:50",
-        names: [
-          "Doc Eric Serrano",
-          "Roland Paras",
-          "Angel Pangilinan",
-          "Boy Medina",
-        ],
+        names: ["Mike Melendez", "Roman Serrano", "Nards Castillo", "PJ Aclan"],
       },
       {
         flight: 4,
         time: "11:00",
         names: [
           "Jimmy Magsino",
-          "Ruel Umandal",
-          "Roehl Reyes",
+          "Bobet Peneza",
+          "Roland Paras",
           "Lope Cristobal",
         ],
       },
@@ -84,7 +97,12 @@ export const tournamentsData = [
       {
         flight: 6,
         time: "11:20",
-        names: ["Rocky Marte", "Francis Franco", "Bobet Peneza", "PJ Aclan"],
+        names: [
+          "Rocky Marte",
+          "Francis Franco",
+          "Boy Medina",
+          "Angel Pangilinan",
+        ],
       },
       {
         flight: 7,
@@ -138,7 +156,7 @@ export const tournamentsData = [
     fee: "$115/player",
     image:
       "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1000",
-    photosLink: "https://photos.google.com/your-album-link",
+    photosLink: "https://photos.app.goo.gl/2nzY1QQ7wQx7yoZG7",
     courseInfo: {
       address: "901 Sterling Hills Drive\nCamarillo, CA 93010",
       par: "71",

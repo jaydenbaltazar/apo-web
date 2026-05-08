@@ -219,7 +219,21 @@ const navLinks = [
     ],
   },
   { title: "Tournaments", path: "/tournaments" },
-  { title: "Service", path: "/service" },
+  {
+    title: "Service",
+    submenu: [
+      {
+        title: "Service Information",
+        subtitle: "Information about APO Service",
+        path: "/service",
+      },
+      {
+        title: "Service Projects",
+        subtitle: "Past and Upcoming service opportunities",
+        path: "/service-projects",
+      },
+    ],
+  },
   { title: "Members", path: "/members" },
 ];
 

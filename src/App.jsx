@@ -9,6 +9,7 @@ import Members from "./pages/Members";
 import ApoHistory from "./pages/ApoHistory";
 import ApogcHistory from "./pages/ApogcHistory";
 import Officers from "./pages/Officers";
+import ServiceProjects from "./pages/ServiceProjects";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/apo-history" element={<ApoHistory />} />
       <Route path="/apogc-history" element={<ApogcHistory />} />
       <Route path="/officers" element={<Officers />} />
+      <Route path="/service-projects" element={<ServiceProjects />} />
     </Routes>
   );
 }
